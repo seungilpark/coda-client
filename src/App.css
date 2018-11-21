@@ -18,11 +18,6 @@
   color: #ABCDAB;
 }
 
-.logo {
-  background: url("./metalboing.gif") no-repeat fixed center;
-  background-size: contain;
-}
-
 /* computerDeck */
 .computerDeck {
   height:calc(95%/4);
