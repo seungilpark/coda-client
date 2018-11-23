@@ -11,10 +11,7 @@ class DropDown extends Component {
 
 } */
 
-/* TODO: 
-class Manual extends Component {
 
-} */
 
 class GameStatus extends Component {
   constructor(props) {
@@ -48,7 +45,6 @@ class GameStatus extends Component {
     return (
       <div className="gameStatusComputerTurn">
         <div className="msg1">Let's Begin! </div>
-        <div className="msg2">ManualComponentPlaceholder</div>
         <div className="black" />
         <div className="numOfBlacks">
           X

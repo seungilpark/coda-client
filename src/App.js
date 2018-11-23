@@ -5,6 +5,7 @@ import GameStatus from "./game-status.js";
 import PlayerDeck from "./playerDeck.js";
 import ComputerDeck from "./computerDeck.js";
 import Card from "./card.js";
+import Manual from "./manual.js"
 
 class App extends Component {
   constructor(props) {
@@ -463,8 +464,9 @@ class App extends Component {
             : 0}
           %
         </div>
-        <div>leaderboard</div>
-        <div>profile</div>
+        <div>Leaderboard</div>
+        <Manual />
+        <div>Logout</div>
       </header>
 
       <ComputerDeck

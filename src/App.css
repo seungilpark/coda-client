@@ -10,13 +10,49 @@
   filter: opacity(0.88)
 }
 
+
+
+/* Menu tabs */
 .menu {
   height: 5%;
   background-color: #131121;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   color: #ABCDAB;
+  text-align: center;
 }
+
+/* Manual */
+.manualContainer:hover {
+  background-color: deeppink;
+}
+
+.stress {
+  font-weight: 700;
+  color: deeppink;
+}
+
+
+.foldedManual {
+  /* hidden */
+  display:none;
+}
+.visibleManual {
+  position: absolute;
+  top:5%;
+  left:0;
+  right:0;
+  height:95vh;
+  margin: auto;
+  text-align: auto;
+  font-size: 1.5rem;
+  background-color: white;
+  z-index: 100;
+  color: black;
+}
+
+
+
 
 /* computerDeck */
 .computerDeck {
