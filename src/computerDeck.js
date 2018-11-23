@@ -4,13 +4,8 @@ import Card from "./card.js";
 import _ from "lodash";
 
 class ComputerDeck extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      selected:""
-    }
-  }
-  renderCard = card => {
+
+  renderCard = (card, selectedCardName) => {
     /*   
       onClick={() => this.props.onClick(i)}
         about the onClick    
@@ -23,7 +18,9 @@ class ComputerDeck extends Component {
         key={card.getCardName()}
         onClick={()=>this.props.selectCard(card.getCardName())}
         className={
-          card.getColor() === "B" ? "blackComputerCard" : "whiteComputerCard"
+          card.getCardName() === selectedCardName
+          ? card.getColor() === "B" ? "selectedBlackComputerCard" : "selectedWhiteComputerCard"
+          : card.getColor() === "B" ? "blackComputerCard" : "whiteComputerCard"
         }
       >
         {card.isVisible() ? card.getNumber() : ""}
