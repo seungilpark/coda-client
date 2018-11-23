@@ -11,6 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       playerStatus: {
+        userName:'John Smith',
         wins: 0,
         loses: 0
       },
@@ -44,32 +45,27 @@ class App extends Component {
         "WJH"
       ],
       playerDeck: [],
-      turn: 0,
-      selected: "",
-      lastDealt: "",
-      guessedNumber: "",
+      didComputerGuess:false,
+      wasComputerCorrect:false,
+      didComputerDraw:false,
+      cardComputerDrawn:"",
+      isPlayerTurn:false,
+      didPlayerMakeGuess:false,
+      wasPlayerCorrect:false,
+      cardPlayerDrawn: "",
+      numberPlayerGuessed: "",
+      cardPlayerSelected: "",
+      didPlayerGuessNum:false,
+      didPlayerSelect:false,
+      didPlayerDraw:false,
+      finished: false,
+      reGuess:false,
       winner: "",
-      finished: false
+      turn: 0,
     };
   }
 
   setUp = () => {
-    return (
-      <GameStatus
-        turn={this.state.turn}
-        className="status"
-        deck={this.state.pool}
-        turnMessage=""
-        statusMessage="Click START"
-        btnName="START"
-        gameBegin={() => {
-          this.begin();
-        }}
-      />
-    );
-  };
-
-  begin = () => {
     // deal three cards to each player
     let pool = this.state.pool.slice();
     let computerDeck = this.state.computerDeck.slice();
@@ -83,38 +79,6 @@ class App extends Component {
       playerDeck.push(drawnCardForPlayer);
     }
 
-    // computer draws a card
-    // make a guess
-    let drawnCard = _.sample(pool);
-    pool = pool.filter(cardName => cardName !== drawnCard);
-
-    let computerChosenCard = _.sample(
-      playerDeck.filter(cardName => cardName.substr(-1) !== "R")
-    );
-
-    let computerGuessedCard = _.sample(
-      pool.concat(playerDeck.filter(cardName => cardName.substr(-1) !== "R"))
-    );
-
-    if (computerChosenCard === computerGuessedCard) {
-      // if the guess was correct
-      playerDeck = playerDeck.filter(
-        cardName => cardName !== computerChosenCard
-      );
-      //removes the guessed card
-      // reveals the card and push it to player's Deck
-      let revealedPlayerCard = computerGuessedCard.slice(0, -1) + "R";
-      playerDeck.push(revealedPlayerCard);
-
-      // adds the drawnCard hidden
-      computerDeck.push(drawnCard);
-    } else {
-      // when the guess was incorrect
-      // reveals the drawnCard
-      drawnCard = drawnCard.slice(0, -1) + "R";
-      computerDeck.push(drawnCard);
-    }
-
     this.setState({
       pool: pool,
       computerDeck: computerDeck,
@@ -126,111 +90,195 @@ class App extends Component {
   computerTurn = () => {
     let pool = this.state.pool.slice();
     let computerDeck = this.state.computerDeck.slice();
-    let playerDeck = this.state.playerDeck.slice();
-    let drawnCard = _.sample(pool);
-    pool = pool.filter(cardName => cardName !== drawnCard);
-
-    // computer picks a card from playerdeck
-    //  and makes a guess
-    let computerChosenCard = _.sample(
-      playerDeck.filter(cardName => cardName.substr(-1) !== "R")
-    );
-    let computerGuessedCard = _.sample(
-      pool.concat(playerDeck.filter(cardName => cardName.substr(-1) !== "R"))
-    );
-
-
-
-    if (computerChosenCard === computerGuessedCard) {
-      // if computer guessed correctly
-      playerDeck = playerDeck.filter(
-        cardName => cardName !== computerChosenCard
-      );
-      let revealedPlayerCard = computerGuessedCard.slice(0, -1) + "R";
-      playerDeck.push(revealedPlayerCard);
+    let drawnCard = "";
+    if (pool.length){
+      drawnCard = _.sample(pool);
+      pool = pool.filter(cardName => cardName !== drawnCard);
       computerDeck.push(drawnCard);
-      
-      if (
-        playerDeck.length !== 0 &&
-        playerDeck.filter(cardName => cardName.substr(-1) === "H").length === 0
-      ) {
-        this.setState({
-          winner: "Computer",
-          finished: true,
-          statusMessage: "Computer Won!",
-          pool: pool,
-          computerDeck: computerDeck,
-          playerDeck: playerDeck,
-        });
-        return
-      }
-
+      this.setState({
+        isPlayerTurn:false,
+        pool: pool,
+        computerDeck: computerDeck,
+        cardComputerDrawn: drawnCard,
+        didComputerDraw:true,
+        turn: this.state.turn + 1
+      });
     } else {
-      // if computer guessed incorrectly
-      // reveals the drawnCard
-      drawnCard = drawnCard.slice(0, -1) + "R";
-      computerDeck.push(drawnCard);
+      this.setState({
+        isPlayerTurn:false,
+        cardComputerDrawn:drawnCard,
+        turn: this.state.turn + 1,
+        reGuess:false
+        // didComputerDraw:true
+      })
     }
-
-
-    this.setState({
-      pool: pool,
-      computerDeck: computerDeck,
-      playerDeck: playerDeck,
-      turn: this.state.turn + 1
-    });
   };
+
+
+  computerMakeGuess = () => {
+    // TODO: computer advanced algo should go here
+      let pool = this.state.pool.slice();
+      let computerDeck = this.state.computerDeck.slice();
+      let playerDeck = this.state.playerDeck.slice();
+      let drawnCard = this.state.cardComputerDrawn;
+      let wasComputerCorrect;
+  
+      // computer picks a card from playerdeck
+      //  and makes a guess
+      let computerChosenCard = _.sample(
+        playerDeck.filter(cardName => cardName.substr(-1) !== "R")
+      );
+      let computerGuessedCard = _.sample(
+        pool.concat(playerDeck.filter(cardName => cardName.substr(-1) !== "R"))
+      );
+  
+  
+  
+      if (computerChosenCard === computerGuessedCard) {
+        // if computer guessed correctly
+        playerDeck = playerDeck.filter(
+          cardName => cardName !== computerChosenCard
+        );
+        let revealedPlayerCard = computerGuessedCard.slice(0, -1) + "R";
+        playerDeck.push(revealedPlayerCard);
+        
+        if (
+          playerDeck.length !== 0 &&
+          playerDeck.filter(cardName => cardName.substr(-1) === "H").length === 0
+        ) {
+          this.setState({
+            winner: "Computer",
+            finished: true,
+            pool: pool,
+            computerDeck: computerDeck,
+            playerDeck: playerDeck,
+          });
+          return
+        }
+        wasComputerCorrect = true;
+  
+      } else {
+        // if computer guessed incorrectly
+        // reveals the drawnCard
+        if ( this.state.didComputerDraw ){
+          computerDeck = computerDeck.filter(cardName => cardName !== drawnCard)
+          drawnCard = drawnCard.slice(0, -1) + "R";
+          computerDeck.push(drawnCard);
+        }
+        wasComputerCorrect = false; 
+      }
+  
+  
+      this.setState({
+        pool: pool,
+        computerDeck: computerDeck,
+        playerDeck: playerDeck,
+        didComputerGuess:true,
+        turn: this.state.turn + 1,
+        wasComputerCorrect: wasComputerCorrect,
+        
+      });
+    };
+  
+
+  startPlayerTurn = () => {
+    this.setState({
+      isPlayerTurn:true,
+      didPlayerDraw:false,
+      didPlayerMakeGuess:false,
+      didPlayerSelect:false,
+      didComputerGuess:false,
+      didComputerDraw:false,
+      turn: this.state.turn + 1,
+      numberPlayerGuessed:"",
+    })
+  }
+
   // selectCard={(cardName)=>this.selectCard(cardName)}
   dealBlack = () => {
     let pool = this.state.pool.slice();
     let playerDeck = this.state.playerDeck.slice();
-    let blackCard = _.sample(
-      pool.filter(cardName => cardName.substr(0, 1) === "B")
-    );
-    pool = pool.filter(cardName => cardName !== blackCard);
-    playerDeck.push(blackCard);
-    this.setState({
-      pool: pool,
-      playerDeck: playerDeck,
-      lastDealt: blackCard
-    });
+    if (pool.length){
+      let blackCard = _.sample(
+        pool.filter(cardName => cardName.substr(0, 1) === "B")
+      );
+      pool = pool.filter(cardName => cardName !== blackCard);
+      playerDeck.push(blackCard);
+      this.setState({
+        pool: pool,
+        playerDeck: playerDeck,
+        cardPlayerDrawn: blackCard,
+        didPlayerDraw:true
+      });
+    } else {
+      this.setState({
+        cardPlayerDrawn: "",
+        didPlayerDraw:true
+      });
+    }
   };
 
   dealWhite = () => {
     let pool = this.state.pool.slice();
     let playerDeck = this.state.playerDeck.slice();
-    let whiteCard = _.sample(
-      pool.filter(cardName => cardName.substr(0, 1) === "W")
-    );
-    pool = pool.filter(cardName => cardName !== whiteCard);
-    playerDeck.push(whiteCard);
-    this.setState({
-      pool: pool,
-      playerDeck: playerDeck,
-      lastDealt: whiteCard
-    });
+    if (pool.length){
+      let whiteCard = _.sample(
+        pool.filter(cardName => cardName.substr(0, 1) === "W")
+      );
+      pool = pool.filter(cardName => cardName !== whiteCard);
+      playerDeck.push(whiteCard);
+      this.setState({
+        pool: pool,
+        playerDeck: playerDeck,
+        cardPlayerDrawn: whiteCard,
+        didPlayerDraw:true
+      });
+    } else {
+      this.setState({
+        cardPlayerDrawn: "",
+        didPlayerDraw:true
+      });
+    }
+    
+    
+    
+    
   };
 
   selectCard = cardName => {
     this.setState({
-      selected: cardName
+      cardPlayerSelected: cardName,
+      didPlayerSelect:true
     });
   };
 
   getGuessedNum = event => {
     this.setState({
-      guessedNumber: event.target.value
+      numberPlayerGuessed: event.target.value,
+      didPlayerGuessNum:true,
     });
   };
 
-  checkGuess = () => {
+  reGuess = () => {
+    this.setState({
+      didPlayerGuessNum: false,
+      didPlayerSelect:false,
+      didPlayerMakeGuess:false,
+      didPlayerDraw:true,
+      reGuess:true,
+      numberPlayerGuessed:"",
+    })
+  }
+
+
+  makeGuess = () => {
     let playerDeck = this.state.playerDeck.slice();
     let computerDeck = this.state.computerDeck.slice();
 
-    let cardBeingGuessed = this.state.selected;
+    let cardBeingGuessed = this.state.cardPlayerSelected;
     cardBeingGuessed = new Card(cardBeingGuessed);
-    let guess = this.state.guessedNumber;
-    let lastDealt = this.state.lastDealt;
+    let guess = this.state.numberPlayerGuessed;
+    let lastDealt = this.state.cardPlayerDrawn;
 
     if (cardBeingGuessed.getNumber() === guess) {
       // when player guessed correctly
@@ -249,15 +297,20 @@ class App extends Component {
         this.setState({
           winner: "Player",
           finished: true,
-          statusMessage: "Player Won!",
           computerDeck: computerDeck
+          
         });
         return
       } //if the game is finished
 
       this.setState({
-        computerDeck: computerDeck
+        computerDeck: computerDeck,
+        didPlayerMakeGuess:true,
+        wasPlayerCorrect:true,
+        reGuess:false,
+        numberPlayerGuessed:"",
       });
+
     } else if (
       cardBeingGuessed.getNumber() === "J" &&
       (guess === "j" || guess === "joker" || guess === "Joker")
@@ -274,55 +327,43 @@ class App extends Component {
         this.setState({
           winner: "Player",
           finished: true,
-          statusMessage: "Player Won!",
           computerDeck: computerDeck
         });
         return
       } //if the game is finished
 
       this.setState({
-        computerDeck: computerDeck
+        computerDeck: computerDeck,
+        didPlayerMakeGuess:true,
+        wasPlayerCorrect:true,
+        reGuess:false,
+        numberPlayerGuessed:"",
       });
+
     } else {
       // when player guessed incorrectly
       // reveal the last dealt card
-      playerDeck = playerDeck.filter(cardName => cardName !== lastDealt);
-      lastDealt = new Card(lastDealt);
-      lastDealt.flipCard();
-      playerDeck.push(lastDealt.getCardName());
-      this.setState({
-        playerDeck: playerDeck
-      });
+      if (lastDealt!==""){
+        playerDeck = playerDeck.filter(cardName => cardName !== lastDealt);
+        lastDealt = new Card(lastDealt);
+        lastDealt.flipCard();
+        playerDeck.push(lastDealt.getCardName());
+        this.setState({
+          playerDeck: playerDeck,
+          wasPlayerCorrect:false,
+          didPlayerMakeGuess:true,
+          reGuess:false
+        });
+      } else {
+        this.setState({
+          wasPlayerCorrect:false,
+          didPlayerMakeGuess:true,
+          reGuess:false
+        });
+      }
+      
       // this.computerTurn();
     }
-  };
-
-  //give prop of  makeGuess()
-  afterTurnStarts = () => {
-    return (
-      <GameStatus
-        turn={this.state.turn}
-        className="status"
-        deck={this.state.pool}
-        turnMessage="Your Turn"
-        statusMessage="Pick a Card from the middle. Click Computer's Card you want to guess. Type number. Click Guess."
-        btn1="Guess"
-        btn2="Next"
-        dealBlack={() => {
-          this.dealBlack();
-        }}
-        dealWhite={() => {
-          this.dealWhite();
-        }}
-        guessNum={event => this.getGuessedNum(event)}
-        //TODO btn1Func
-        checkGuess={() => this.checkGuess()}
-        //TODO btn2Func
-        nextTurn={() => {
-          this.computerTurn();
-        }}
-      />
-    );
   };
 
   resetGame = () => {
@@ -361,21 +402,39 @@ class App extends Component {
         "WJH"
       ],
       playerDeck: [],
-      turn: 0,
-      selected: "",
-      lastDealt: "",
-      guessedNumber: "",
+      didComputerGuess:false,
+      wasComputerCorrect:false,
+      didComputerDraw:false,
+      cardComputerDrawn:"",
+      isPlayerTurn:false,
+      didPlayerMakeGuess:false,
+      wasPlayerCorrect:false,
+      cardPlayerDrawn: "",
+      numberPlayerGuessed: "",
+      cardPlayerSelected: "",
+      didPlayerGuessNum:false,
+      didPlayerSelect:false,
+      didPlayerDraw:false,
+      finished: false,
+      reGuess:false,
       winner: "",
-      finished: false
+      turn: 0,
     });
   };
   
-  /* save game */
-  save = () => {
+  updateUserStatus = () => {
+    /* update UserStatus */
     // make a axios POST request
     // with updated userStatus
     // json of {userID, userName, wins, loses}
-    console.log('save game')
+    console.log('updating user status...')
+  }
+
+  /* save game */
+  save = () => {
+    /* TODO:Save user's current game status */
+    
+    console.log('save game');
   }
   /* fetch leaderboard */
   getTopTen = () => {
@@ -384,25 +443,7 @@ class App extends Component {
     console.log('fetch top 10')
   }
 
-  renderFinished = () => {
-    return (
-      <GameStatus
-        turn={this.state.turn}
-        finished={this.state.finished}
-        className="status"
-        deck={this.state.pool}
-        turnMessage="Game Over"
-        statusMessage={this.state.statusMessage}
-        btn1="reset"
-        btn2="save"
-        reset = {()=>this.resetGame()}
-        save = {()=>this.save()}
-      />
-    );
-  };
-
-
-render = () => {
+  render = () => {
   return (
     <div className="App">
       <header className="menu">
@@ -426,15 +467,27 @@ render = () => {
 
       <ComputerDeck
         selectCard={cardName => this.selectCard(cardName)}
+        selected={this.state.cardPlayerSelected}
         className="computerDeck"
         deck={this.state.computerDeck}
       />
 
-      {this.state.turn === 0
-        ? this.setUp()
-        : this.state.finished
-        ? this.renderFinished()
-        : this.afterTurnStarts()}
+
+      <GameStatus 
+        states = {this.state}
+        gameBegin = {() => this.setUp()} 
+        reset = {()=>this.resetGame()}
+        dealBlack={() => this.dealBlack()}
+        dealWhite={() => this.dealWhite()}
+        guessNum={event => this.getGuessedNum(event)}
+        makeGuess={() => this.makeGuess()}
+        computerTurn={() => this.computerTurn()}
+        computerMakeGuess={()=>this.computerMakeGuess()}
+        playerTurn={() => this.startPlayerTurn()}
+        startComputerTurn={()=>this.startComputerTurn()}
+        reGuess={()=>this.reGuess()}
+      />
+      
 
       <PlayerDeck className="playerDeck" deck={this.state.playerDeck} />
     </div>
