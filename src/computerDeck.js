@@ -6,17 +6,11 @@ import _ from "lodash";
 class ComputerDeck extends Component {
 
   renderCard = (card, selectedCardName) => {
-    /*   
-      onClick={() => this.props.onClick(i)}
-        about the onClick    
-        if it is the player's turn
-        clicking computer card is making a guess
-        the logic should be in App component
-    */
+
     return (
       <div
         key={card.getCardName()}
-        onClick={()=>this.props.selectCard(card.getCardName())}
+        onClick={this.props.isPlayerTurn?()=>this.props.selectCard(card.getCardName()):""}
         className={
           card.getCardName() === selectedCardName
           ? card.getColor() === "B" ? "selectedBlackComputerCard" : "selectedWhiteComputerCard"
@@ -37,7 +31,7 @@ class ComputerDeck extends Component {
     }
     return (
       <div className="computerDeckContainer">
-        {deck.map(card => this.renderCard(card))}
+        {deck.map(card =>this.renderCard(card, this.props.selectedCardName))}
       </div>
     );
   }

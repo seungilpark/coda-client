@@ -246,6 +246,7 @@ class App extends Component {
   };
 
   selectCard = cardName => {
+    console.log('hahah', cardName)
     this.setState({
       cardPlayerSelected: cardName,
       didPlayerSelect:true
@@ -253,6 +254,7 @@ class App extends Component {
   };
 
   getGuessedNum = event => {
+    console.log('Card Value~~~~~~~~~~~~~~~~~~~~~~~~~~~`' ,event.target.value)
     this.setState({
       numberPlayerGuessed: event.target.value,
       didPlayerGuessNum:true,
@@ -466,10 +468,12 @@ class App extends Component {
       </header>
 
       <ComputerDeck
+        isPlayerTurn={this.state.isPlayerTurn}
         selectCard={cardName => this.selectCard(cardName)}
         selected={this.state.cardPlayerSelected}
         className="computerDeck"
         deck={this.state.computerDeck}
+        selectedCardName={this.state.cardPlayerSelected}
       />
 
 
