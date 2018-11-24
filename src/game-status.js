@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import "./App.css";
+import Card from "./card";
 
 //TODO: DropDown component for selecting number to guess
 //TODO: different renders
@@ -110,7 +111,11 @@ class GameStatus extends Component {
 
   /* renderComputerSuccess */
   renderComputerTurnResult = () => {
+    let {cardComputerDrawn} = this.props.states
+    cardComputerDrawn = new Card(cardComputerDrawn)
+
     return (
+      
       <div className="gameStatusComputerTurn">
         <div className="msg1">
           {this.props.states.wasComputerCorrect
@@ -120,7 +125,7 @@ class GameStatus extends Component {
         <div className="msg2">
           {this.props.states.wasComputerCorrect
             ? "Computer revealed your card"
-            : "Computer's card is revealed"}
+            : `Computer's card ${cardComputerDrawn.getNumber()} is revealed`}
         </div>
         <div className="black" />
         <div className="numOfBlacks">
@@ -257,11 +262,14 @@ class GameStatus extends Component {
 
   /* renderPlayerFail */
   renderPlayerTurnFail = () => {
+    let {cardPlayerDrawn} = this.props.states;
+    cardPlayerDrawn = new Card(cardPlayerDrawn);
+
     return (
       <div className="gameStatusPlayerTurnFail">
         <div className="msg1">You guessed wrong number!</div>
 
-        <div className="msg2">Your card is revealed</div>
+        <div className="msg2">Your card {cardPlayerDrawn.getNumber()} is revealed</div>
         <div className="black" />
         <div className="numOfBlacks">
           X

@@ -69,6 +69,7 @@
   flex-direction: row;
   align-items: center;
 }
+
 .selectedWhiteComputerCard {
   height:66%;
   width:7%;
@@ -79,6 +80,21 @@
   font-size: 3.5rem;;
   text-align:center;
   border: 8px dotted red;
+  margin:5px;  
+  vertical-align: middle;
+
+}
+
+.visibleWhiteComputerCard {
+  height:66%;
+  width:7%;
+  background:#FFF;
+  opacity: 1;
+  display: inline-block;
+  text-align: center;
+  font-size: 3.5rem;;
+  text-align:center;
+  border: 5px dashed #20c2ff;
   margin:5px;  
   vertical-align: middle;
 
@@ -96,6 +112,22 @@
   text-align:center;
   vertical-align: middle; 
   border: 8px  dotted red;
+  margin:5px;
+  
+}
+
+.visibleBlackComputerCard {
+  height:66%;
+  width:7%;
+  background:#000;
+  opacity: 1;
+  display: inline-block;
+  text-align: center;
+  font-size: 3.5rem;
+  color: white;
+  text-align:center;
+  vertical-align: middle; 
+  border: 5px dashed #20c2ff;
   margin:5px;
   
 }

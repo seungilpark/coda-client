@@ -101,6 +101,7 @@ class App extends Component {
         pool: pool,
         computerDeck: computerDeck,
         cardComputerDrawn: drawnCard,
+        cardPlayerDrawn:"",
         didComputerDraw:true,
         turn: this.state.turn + 1
       });
@@ -108,6 +109,7 @@ class App extends Component {
       this.setState({
         isPlayerTurn:false,
         cardComputerDrawn:drawnCard,
+        cardPlayerDrawn:"",
         turn: this.state.turn + 1,
         reGuess:false
         // didComputerDraw:true
