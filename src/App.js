@@ -192,6 +192,7 @@ class App extends Component {
       didComputerDraw:false,
       turn: this.state.turn + 1,
       numberPlayerGuessed:"",
+      cardPlayerSelected:""
     })
   }
 

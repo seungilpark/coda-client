@@ -78,7 +78,7 @@
   text-align: center;
   font-size: 3.5rem;;
   text-align:center;
-  border: 5px solid red;
+  border: 8px dotted red;
   margin:5px;  
   vertical-align: middle;
 
@@ -95,7 +95,7 @@
   color: white;
   text-align:center;
   vertical-align: middle; 
-  border: 5px  solid red;
+  border: 8px  dotted red;
   margin:5px;
   
 }
@@ -193,6 +193,16 @@
   box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
 }
 
+.start-btn:hover {
+  grid-area: btn;
+  background-color: #ABCDAB;
+  border:2px solid #ABCDAB; 
+  color:#222;
+  font-size: 1.4rem;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
+}
+
 
 /* computer's Turn */
 .gameStatusComputerTurn {
@@ -233,15 +243,36 @@
   box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
 }
 
+.white:hover {
+  background:#FFF;
+  text-align: center;
+  font-size: 2.2rem;
+  border: 8px dotted #ABCDAB;
+  grid-area: w;
+  box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
+}
+
 .black {
   background:#222;
   text-align: center;
   font-size: 2.2rem;
-  border: 1px solid #ABCDAB;
+  border: 2px solid #ABCDAB;
   grid-area: b;
   color:#FFF;
   box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
 }
+
+.black:hover {
+  background:#222;
+  text-align: center;
+  font-size: 2.2rem;
+  border: 8px dotted #ABCDAB;
+  grid-area: b;
+  color:#FFF;
+  box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
+}
+
+
 .numOfBlacks {
   grid-area: nb;
   font-size: 1.5rem;
@@ -271,6 +302,16 @@
   box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
 }
 
+.continue-btn:hover {
+  grid-area: ctn;
+  background-color: #ABCDAB;
+  border:2px solid #ABCDAB;
+  color:#222;
+  font-size: 1.4rem;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
+}
+
 .main-btn {
   grid-area: btn;
   background-color: #222;
@@ -281,15 +322,19 @@
   box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
 }
 
-.next-btn {
-  grid-area: btn2;
-  background-color: #222;
-  border:2px solid #222; 
-  color:#ABCDAB;
+.main-btn:hover {
+  grid-area: btn;
+  background-color: #ABCDAB;
+  border:2px solid #ABCDAB;
+  color:#222;
   font-size: 1.4rem;
   text-align: center;
   box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
 }
+
+
+
+
 /* gameStatusPlayerStandard */
 
 .gameStatusPlayerTurn {
@@ -421,12 +466,31 @@
   box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
 }
 
+.guess-btn:hover {
+  grid-area: guess;
+  background-color: #ABCDAB;
+  border:2px solid #ABCDAB;
+  color:#222;
+  font-size: 1.4rem;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
+}
 
 .next-btn {
   grid-area: next;
   background-color: #222;
   border:2px solid #222; 
   color:#ABCDAB;
+  font-size: 1.4rem;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
+}
+
+.next-btn:hover {
+  grid-area: next;
+  background-color: #ABCDAB;
+  border:2px solid #ABCDAB;
+  color:#222;
   font-size: 1.4rem;
   text-align: center;
   box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
