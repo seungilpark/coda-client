@@ -20,11 +20,15 @@
   grid-template-columns: repeat(7, 1fr);
   color: #ABCDAB;
   text-align: center;
+  padding-top: 10px;
+  font-size: 1.3rem;
 }
 
 /* Manual */
 .manualContainer:hover {
   background-color: deeppink;
+  color:white;
+  
 }
 
 .stress {

@@ -129,10 +129,10 @@ class App extends Component {
       // computer picks a card from playerdeck
       //  and makes a guess
       let computerChosenCard = _.sample(
-        playerDeck.filter(cardName => cardName.substr(-1) !== "R")
+        playerDeck.filter(cardName => cardName.substr(-1) === "H")
       );
       let computerGuessedCard = _.sample(
-        pool.concat(playerDeck.filter(cardName => cardName.substr(-1) !== "R"))
+        pool.concat(playerDeck.filter(cardName => cardName.substr(-1) === "H"))
       );
   
   
@@ -149,12 +149,16 @@ class App extends Component {
           playerDeck.length !== 0 &&
           playerDeck.filter(cardName => cardName.substr(-1) === "H").length === 0
         ) {
+
+          let playerStatus = Object.assign({}, this.state.playerStatus);
+          playerStatus.loses = playerStatus.loses + 1;
           this.setState({
             winner: "Computer",
             finished: true,
             pool: pool,
             computerDeck: computerDeck,
             playerDeck: playerDeck,
+            playerStatus: playerStatus
           });
           return
         }
@@ -244,9 +248,6 @@ class App extends Component {
       });
     }
     
-    
-    
-    
   };
 
   selectCard = cardName => {
@@ -258,7 +259,6 @@ class App extends Component {
   };
 
   getGuessedNum = event => {
-    console.log('Card Value~~~~~~~~~~~~~~~~~~~~~~~~~~~`' ,event.target.value)
     this.setState({
       numberPlayerGuessed: event.target.value,
       didPlayerGuessNum:true,
@@ -273,6 +273,7 @@ class App extends Component {
       didPlayerDraw:true,
       reGuess:true,
       numberPlayerGuessed:"",
+      cardPlayerSelected:false
     })
   }
 
@@ -300,11 +301,13 @@ class App extends Component {
         computerDeck.length !== 0 &&
         computerDeck.filter(cardName => cardName.substr(-1) === "H").length === 0
       )  {
+        let playerStatus = Object.assign({}, this.state.playerStatus);
+        playerStatus.wins = playerStatus.wins + 1;
         this.setState({
           winner: "Player",
           finished: true,
-          computerDeck: computerDeck
-          
+          computerDeck: computerDeck,
+          playerStatus: playerStatus
         });
         return
       } //if the game is finished
@@ -330,10 +333,13 @@ class App extends Component {
         computerDeck.length !== 0 &&
         computerDeck.filter(cardName => cardName.substr(-1) === "H").length === 0
       )  {
+        let playerStatus = Object.assign({}, this.state.playerStatus);
+        playerStatus.wins = playerStatus.wins + 1;
         this.setState({
           winner: "Player",
           finished: true,
-          computerDeck: computerDeck
+          computerDeck: computerDeck,
+          playerStatus: playerStatus
         });
         return
       } //if the game is finished
@@ -374,10 +380,6 @@ class App extends Component {
 
   resetGame = () => {
     this.setState({
-      playerStatus: {
-        wins: 0,
-        loses: 0
-      },
       computerDeck: [],
       pool: [
         "B0H",
@@ -439,7 +441,7 @@ class App extends Component {
   /* save game */
   save = () => {
     /* TODO:Save user's current game status */
-    
+    /* update all the states of the game */
     console.log('save game');
   }
   /* fetch leaderboard */
@@ -450,22 +452,16 @@ class App extends Component {
   }
 
   render = () => {
+    let {wins, loses} = this.state.playerStatus;
+    let total = wins+loses;
   return (
     <div className="App">
       <header className="menu">
         <div className="logo" />
-        <div>wins:{this.state.playerStatus.wins}</div>
-        <div>loses:{this.state.playerStatus.loses}</div>
+        <div>wins: {wins}</div>
+        <div>loses: {loses}</div>
         <div>
-          win_rate:
-          {this.state.playerStatus.wins !== 0 &&
-          this.state.playerStatus.loses !== 0
-            ? (this.state.playerStatus.wins /
-                (this.state.playerStatus.wins +
-                  this.state.playerStatus.loses)) *
-              100
-            : 0}
-          %
+          win_rate: {total!== 0 ? (wins / total) * 100 : 0} %
         </div>
         <div>Leaderboard</div>
         <Manual />
