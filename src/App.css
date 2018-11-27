@@ -3,7 +3,8 @@
 /* main */
 
 .App {
-  background: url('./bg.jpg') no-repeat fixed center; 
+  background: url('./matrix.png') no-repeat fixed center; 
+
   background-size: cover;
   width: 100vw;
   height: 100vh;
@@ -279,7 +280,16 @@
   box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
 }
 
-.white:hover {
+.white1 {
+  background:#FFF;
+  text-align: center;
+  font-size: 2.2rem;
+  border: 2px solid #ABCDAB;
+  grid-area: w;
+  box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
+}
+
+.white1:hover {
   background:#FFF;
   text-align: center;
   font-size: 2.2rem;
@@ -297,8 +307,16 @@
   color:#FFF;
   box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
 }
-
-.black:hover {
+.black1 {
+  background:#222;
+  text-align: center;
+  font-size: 2.2rem;
+  border: 2px solid #ABCDAB;
+  grid-area: b;
+  color:#FFF;
+  box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
+}
+.black1:hover {
   background:#222;
   text-align: center;
   font-size: 2.2rem;
@@ -322,6 +340,7 @@
   text-align: center;
   color: #ABCDAB;
 }
+
 
 .textInput {
   grid-area: inp;

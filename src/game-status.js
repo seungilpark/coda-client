@@ -3,14 +3,10 @@
 import React, { Component } from "react";
 import "./App.css";
 import Card from "./card";
-
+import swal from "sweetalert";
 //TODO: DropDown component for selecting number to guess
-//TODO: different renders
 
-/* TODO: 
-class DropDown extends Component {
-
-} */
+let guess_instruction = "To Make a Guess:\n1. draw a card from the pool\n2.Select computer's card you want to guess \n3. Type number in the input"
 
 
 
@@ -150,7 +146,7 @@ class GameStatus extends Component {
           onClick={() => this.props.playerTurn()}
           className="continue-btn"
         >
-          Continue
+          To Player's Turn
         </button>
       </div>
     );
@@ -169,10 +165,10 @@ class GameStatus extends Component {
               cardName => cardName.slice(0, 1) === "B").length?
               !this.props.states.didPlayerDraw 
                 ? () => this.props.dealBlack()
-                : () => alert("you already drew a card")
+                : () => swal("you already drew a card", guess_instruction)
             :()=>{console.log('empty b pool')}
           }
-          className="black"
+          className="black1"
         />
         <div className="numOfBlacks">
           X
@@ -188,10 +184,10 @@ class GameStatus extends Component {
               cardName => cardName.slice(0, 1) === "W").length?
                 !this.props.states.didPlayerDraw
                   ? () => this.props.dealWhite()
-                  : () => alert("you already drew a card")
+                  : () => swal("you already drew a card!",guess_instruction)
               :()=>{console.log('empty whiteppol')}
           }
-          className="white"
+          className="white1"
         />
         <div className="numOfWhites">
           X
@@ -213,8 +209,8 @@ class GameStatus extends Component {
               ? this.props.states.didPlayerGuessNum &&
                 this.props.states.didPlayerSelect
                 ? () => this.props.makeGuess()
-                : () => alert("Your must select / guess")
-              : () => alert("You must draw a card first!")
+                : () => swal("Your must select / guess",guess_instruction)
+              : () => swal("You must draw a card first!", guess_instruction)
           }
           className="guess-btn"
         >
@@ -254,7 +250,7 @@ class GameStatus extends Component {
           onClick={() => this.props.computerTurn()}
           className="next-btn"
         >
-          Skip
+          To Computer's Turn
         </button>
       </div>
     );
@@ -295,11 +291,10 @@ class GameStatus extends Component {
   };
 
   renderPlayerReguess = () => {
-    // TODO: add Manual component
     return (
       <div className="gameStatusPlayerReguess">
         <div className="msg1">Your Turn!</div>
-        <div className="msg2">Make a re-guess</div>
+        <div className="msg2">Make a Guess</div>
         <div className="black"/>
         <div className="numOfBlacks">
           X
@@ -330,8 +325,8 @@ class GameStatus extends Component {
               ? this.props.states.didPlayerGuessNum &&
                 this.props.states.didPlayerSelect
                 ? () => this.props.makeGuess()
-                : () => alert("Your must select / guess")
-              : () => alert("You must draw a card first!")
+                : () => swal("Your must select / guess", guess_instruction)
+              : () => swal("You must draw a card first!",guess_instruction)
           }
           className="guess-btn"
         >
@@ -344,7 +339,10 @@ class GameStatus extends Component {
   renderEnd = () => {
     return (
       <div className="gameStatusStart">
-        <div className="msg1">{this.props.states.winner} Won!</div>
+        <div className="msg1">
+          {this.props.states.winner} Won! <br/>
+          Total number of turns: {this.props.states.turn} <br/>
+        </div>
         <div className="msg2">
           Click <strong>Start</strong> to play again{" "}
         </div>
