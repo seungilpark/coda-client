@@ -6,24 +6,24 @@ import _ from "lodash";
 class PlayerDeck extends Component {
 
   renderCard = card => {
-    /*   
-      onClick={() => this.props.onClick(i)}
-        about the onClick    
-        if it is the player's turn
-        clicking computer card is making a guess
-        the logic should be in App component
 
-        for computer you do not need to use event?
-            just random guess for now?
-    */
     let cardClassName;
-    if (card.isVisible()) {
+    if (card.getCardName()===this.props.lastDrawnCard){
+      // card is last drawn card 
+      if (card.getColor() === "B") {
+        cardClassName = "drawnBlackPlayerCard";
+      } else {
+        cardClassName = "drawnWhitePlayerCard";
+      }
+    } else if (card.isVisible()) {
+      // card is visible
       if (card.getColor() === "B") {
         cardClassName = "visibleBlackPlayerCard";
       } else {
         cardClassName = "visibleWhitePlayerCard";
       }
     } else {
+      // card is hidden
       if (card.getColor() === "B") {
         cardClassName = "blackPlayerCard";
       } else {
