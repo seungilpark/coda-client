@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Manual from "./manual.js"
+import LOGO from "./LOGO.png"
 
 class Menu extends Component {
  render(){
@@ -8,7 +9,9 @@ class Menu extends Component {
     let total = wins+loses;
     return (
      <header className="menu">
-        <div className="logo" />
+        <div className="logo">CODA
+          <img src={LOGO} alt="Logo" className="logopic"/>
+        </div>
         <div>wins: {wins}</div>
         <div>loses: {loses}</div>
         <div>

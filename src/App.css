@@ -661,8 +661,13 @@
 
 
 
-
-
-
-
+.logo {
+  text-align: center;
+}
+.logopic {
+  position: relative;
+  height: 2rem;
+  z-index: 20;
+  opacity: 0.5;
+}
 
