@@ -5,7 +5,7 @@ import GameStatus from "./game-status.js";
 import PlayerDeck from "./playerDeck.js";
 import ComputerDeck from "./computerDeck.js";
 import Card from "./card.js";
-import Manual from "./manual.js"
+import Menu from "./menu.js"
 
 class App extends Component {
   constructor(props) {
@@ -452,21 +452,10 @@ class App extends Component {
   }
 
   render = () => {
-    let {wins, loses} = this.state.playerStatus;
-    let total = wins+loses;
+    
   return (
     <div className="App">
-      <header className="menu">
-        <div className="logo" />
-        <div>wins: {wins}</div>
-        <div>loses: {loses}</div>
-        <div>
-          win_rate: {total!== 0 ? (wins / total) * 100 : 0} %
-        </div>
-        <div>Leaderboard</div>
-        <Manual />
-        <div>Logout</div>
-      </header>
+      <Menu user={this.state.playerStatus}/>
 
       <ComputerDeck
         isPlayerTurn={this.state.isPlayerTurn}
