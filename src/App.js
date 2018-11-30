@@ -483,7 +483,10 @@ class App extends Component {
       />
       
 
-      <PlayerDeck className="playerDeck" deck={this.state.playerDeck} />
+      <PlayerDeck 
+        className="playerDeck"
+        lastDrawnCard={this.state.cardPlayerDrawn} 
+        deck={this.state.playerDeck} />
     </div>
   );
 };

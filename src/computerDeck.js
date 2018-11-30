@@ -9,7 +9,7 @@ class ComputerDeck extends Component {
       <div
         key={card.getCardName()}
         onClick={
-          this.props.isPlayerTurn
+          this.props.isPlayerTurn && !card.isVisible()
             ? () => this.props.selectCard(card.getCardName())
             : ""
         }
