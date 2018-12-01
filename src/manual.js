@@ -25,7 +25,7 @@ class Manual extends Component {
                 <p className="instruction">
                     <span className="stress">The goal of this game is to guess the opponent's cards.</span> <br/>
                     There are black cards and white cards. <br/>
-                    The numbers are ranging from 0 to 11. <br/>
+                    The numbers are ranging from 0 to 11 and there is a Joker for each color which is counted as 12. <br/>
                     The Lowest number will go to your left and highest to your right. <br/>
                     If same numbers, the black card will be left to the white. <br/>
                 </p>
@@ -46,9 +46,6 @@ class Manual extends Component {
                         4. click <span className="stress">Guess</span>
                     </p>
                 </p>
-
-
-
             </div>
         </div>
       
