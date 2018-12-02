@@ -663,11 +663,10 @@
 
 .logo {
   text-align: center;
-}
-.logopic {
-  position: relative;
-  height: 2rem;
-  z-index: 20;
-  opacity: 0.5;
+  background-image: url(./LOGO.png);
+  background-size: 60% 80%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: black
 }
 
