@@ -31,7 +31,7 @@ export default class Menu extends Component {
 
         return(
             <header className="menu">
-                <div className="logo" />
+                <div className="logo">CODA</div>
                 <div>wins: {wins}</div>
                 <div>loses: {loses}</div>
                 <div>

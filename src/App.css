@@ -209,13 +209,13 @@
 }
 .msg1 {
   grid-area: msg1;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-align: center;
   color: #ABCDAB;
 }
 .msg2 {
   grid-area: msg2;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-align: center;
   color: #ABCDAB;
 }
@@ -506,9 +506,22 @@
   box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
 }
 
-.textInput {
+.custom-select {
   grid-area: inp;
+  position: relative;
+  font-family: Arial;
+  background-color: #222;
+  border:2px solid #222; 
+  color:#ABCDAB;
+  font-size: 0.9rem;
+  text-align-last:center;
+  box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
+  cursor: pointer;
 
+}
+
+.option {
+  text-align: center;
 }
 
 .guess-btn {
@@ -516,6 +529,7 @@
   background-color: #222;
   border:2px solid #222; 
   color:#ABCDAB;
+  margin-top: 5%;
   font-size: 1.4rem;
   text-align: center;
   box-shadow: 0 4px 8px 0 #ABCDAB, 0 6px 20px 0 #ABCDAB;
@@ -647,8 +661,12 @@
 
 
 
-
-
-
-
+.logo {
+  text-align: center;
+  background-image: url(./LOGO.png);
+  background-size: 60% 80%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: black
+}
 

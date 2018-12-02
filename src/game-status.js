@@ -8,7 +8,10 @@ import swal from "sweetalert";
 
 let guess_instruction = "To Make a Guess:\n1. draw a card from the pool\n2.Select computer's card you want to guess \n3. Type number in the input"
 
-
+const numbers= [0,1,2,3,4,5,6,7,8,9,10,11,"Joker"]
+const listItems = numbers.map((number) =>
+  <option>{number}</option>
+)
 
 class GameStatus extends Component {
   constructor(props) {
@@ -197,17 +200,18 @@ class GameStatus extends Component {
             ).length
           }
         </div>
-        <input
-          className="textInput"
-          placeholder="Guess a number {0-11} or joker e.g. 8 or j"
-          type="text"
+        <select 
+          className = "custom-select"
           onChange={this.props.guessNum}
-        />
+        >
+          <option disabled selected hidden value = "">Choose a number</option>
+          {listItems}
+        </select>
         <button
           onClick={
             this.props.states.didPlayerDraw
               ? this.props.states.didPlayerGuessNum &&
-                this.props.states.didPlayerSelect
+                this.props.states.didPlayerSelect && this.props.states.numberPlayerGuessed !== ""
                 ? () => this.props.makeGuess()
                 : () => swal("Your must select / guess",guess_instruction)
               : () => swal("You must draw a card first!", guess_instruction)
@@ -313,17 +317,18 @@ class GameStatus extends Component {
             ).length
           }
         </div>
-        <input
-          className="textInput"
-          placeholder="Guess a number {0-11} or joker e.g. 8 or j"
-          type="text"
+        <select 
+          className = "custom-select"
           onChange={this.props.guessNum}
-        />
+        >
+          <option disabled selected hidden>Choose a number</option>
+          {listItems}
+        </select>
         <button
           onClick={
             this.props.states.didPlayerDraw
               ? this.props.states.didPlayerGuessNum &&
-                this.props.states.didPlayerSelect
+                this.props.states.didPlayerSelect && this.props.states.numberPlayerGuessed !== ""
                 ? () => this.props.makeGuess()
                 : () => swal("Your must select / guess", guess_instruction)
               : () => swal("You must draw a card first!",guess_instruction)
