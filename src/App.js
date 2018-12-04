@@ -462,12 +462,6 @@ class App extends Component {
     /* update all the states of the game */
     console.log("save game");
   };
-  /* fetch leaderboard */
-  _getTopTen = () => {
-    // make a GET reqeust for top 10 users
-    // [{userName, wins, loses}]
-    console.log("fetch top 10");
-  };
 
   render = () => {
     return (
